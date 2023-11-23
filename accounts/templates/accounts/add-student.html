@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+{% load static %}
+{%block content%}
+
+<div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1>Add Student</h1>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-8">
+      <div class="card">
+        <form action="{% url 'add-student' %}" method="POST" class="form-vertical">
+            {% csrf_token %}
+          <div class="card-header">
+            <h4>Add Student</h4>
+          </div>
+        
+          <div class="card-body">
+
+                <div class="form-group">
+                <label>Registration Number :</label>
+                {{form.registration_number}}
+                </div>
+
+                <div class="form-group">
+                <label>First Name :</label>
+                {{form.first_name}}
+                </div>
+        
+                <div class="form-group">
+                <label>Last Name :</label>
+                {{form.last_name}}
+                </div>
+      
+
+                <div class="form-group">
+                <label>Email :</label>
+                {{form.email}}
+                {{form.email.errors}}
+                </div>
+            
+                <div class="form-group">
+                <label>Phone Number :</label>
+                {{form.phone_number}}
+                </div>
+
+                <div class="form-group">
+                <label>Enter Password :</label>
+                {{form.password}}
+                {{form.non_field_errors}}
+                </div>
+
+                <div class="form-group">
+                <label>Confirm Password :</label>
+                {{form.confirm_password}}
+                </div>
+
+            
+          </div>
+          <div class="card-footer text-right">
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      </div>
+      </div>
+
+      <div class="section-body">
+      </div>
+    </section>
+  </div>
+
+  {%endblock%}

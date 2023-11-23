@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Attendance &mdash; Smart Student ID</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/modules/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/modules/fontawesome/css/all.min.css' %}">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{% static 'assets/modules/bootstrap-social/bootstrap-social.css' %}">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+<!-- Start GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-94034622-3');
+</script>
+<!-- /END GA --></head>
+
+<body>
+  <div id="app">
+    <section class="section">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-8 offset-sm-6 col-md-6 offset-md-6 col-lg-6 offset-lg-6 col-xl-6 offset-xl-4">
+            <div class="login-brand">
+              <!-- <img src="{% static 'assets/img/stisla-fill.svg' %}" alt="logo" width="100" class="shadow-light rounded-circle"> -->
+            </div>
+
+            <div class="card card-primary">
+              <div class="card-header"><h4>Attendance</h4><a href="{% url 'login' %}"><h4>Login</h4></a></div>
+
+              <div class="card-body">
+                <form method="POST" action="#" class="needs-validation" novalidate="">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="email">Registration Number</label>
+                    <input id="email" type="text" class="form-control" name="reg" tabindex="1" required autofocus>
+                    
+                    <label for="password" class="control-label">Unit ID</label>
+                      
+                    
+                    <input id="password" type="text" class="form-control" name="code" tabindex="2" required>
+                  </div>
+
+                  
+
+                  {% include 'includes/alerts.html' %}
+
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      submit
+                    </button>
+                  </div>
+                </form>
+                
+                
+
+              </div>
+            </div>
+           
+            <div class="simple-footer">
+              Copyright &copy; <script>document.write(new Date().getFullYear());</script> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="{% static 'assets/modules/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/modules/popper.js' %}"></script>
+  <script src="{% static 'assets/modules/tooltip.js' %}"></script>
+  <script src="{% static 'assets/modules/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/modules/nicescroll/jquery.nicescroll.min.js' %}"></script>
+  <script src="{% static 'assets/modules/moment.min.js' %}"></script>
+  <script src="{% static 'assets/js/stisla.js' %}"></script>
+  
+  <!-- JS Libraies -->
+  <script type="text/javascript">
+  setTimeout(function(){
+    $('#dmessage').fadeOut('slow')
+}, 4000)
+</script>
+  <!-- Page Specific JS File -->
+  
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+</html>

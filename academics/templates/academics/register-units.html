@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+{%block content%}
+
+<div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1>Add My Units</h1>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-8">
+      <div class="card">
+        <form action="{% url 'register-units' %}" method="POST" class="form-vertical">
+            {% csrf_token %}
+          <div class="card-header">
+            <h4>Add My Units</h4>
+          </div>
+        
+          <div class="card-body">
+
+            {% for field in form %}
+                <div class="form-group">
+                <label>{{field.label}}</label>
+                {{field}}
+                </div>
+
+               {% endfor %}
+               
+            
+          </div>
+          <div class="card-footer text-right">
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      </div>
+      </div>
+
+      <div class="section-body">
+      </div>
+    </section>
+  </div>
+
+  {%endblock%}
