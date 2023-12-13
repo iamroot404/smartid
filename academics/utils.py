@@ -1,20 +1,20 @@
 from django.db.models import Q
-from .models import Stock
+from .models import Attendance
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
  
 
-def paginateStock(request, stock, results):
+def paginateAttendance(request, attendance, results):
     page = request.GET.get('page')
-    paginator = Paginator(stock, results)
+    paginator = Paginator(attendance, results)
 
     try:
-        stock = paginator.page(page)
+        attendance = paginator.page(page)
     except PageNotAnInteger:
         page = 1
-        stock = paginator.page(page)
+        attendance = paginator.page(page)
     except EmptyPage:
         page = paginator.num_pages
-        stock = paginator.page(page)
+        attendance = paginator.page(page)
 
     leftIndex = (int(page) - 4)
 
@@ -29,9 +29,9 @@ def paginateStock(request, stock, results):
     custom_range = range(leftIndex, rightIndex)
 
 
-    return custom_range, stock
+    return custom_range, attendance
 
-def searchStock(request):
+def searchAtendance(request):
     search_query = ''
 
     if request.GET.get('search_query'):
@@ -39,12 +39,11 @@ def searchStock(request):
 
   
 
-    stock = Stock.objects.distinct().filter(
-        Q(stock_id__icontains=search_query) | 
-        Q(batch_number__icontains=search_query) |
-        Q(stock_name__icontains=search_query) |
-        Q(expiry__icontains=search_query)
+    attendance = Attendance.objects.distinct().filter(
+        Q(unit_id__unit_id__unit_code__icontains=search_query) | 
+       
+        Q(unit_id__unit_id__unit_name__icontains=search_query)
     )
 
 
-    return stock, search_query
+    return attendance, search_query

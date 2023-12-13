@@ -4,6 +4,8 @@ from . forms import RegistrationForm, UserForm, UserProfileForm
 from . models import Account, UserProfile
 from academics.models import AcademicDetails
 
+from .utils import searchStudents, paginateStudents
+
 # from .utils import searchStaff, paginateStaff
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
@@ -70,14 +72,17 @@ def addStudent(request):
         return redirect('dashboard')
 
 
-@login_required(login_url= 'login')
+@login_required(login_url= 'login') 
 def viewStudents(request):
     user = request.user
     if  user.is_admin == True:
-        students = Account.objects.filter(is_student=True)
+        students, search_query = searchStudents(request)
+        custom_range, students = paginateStudents(request, students, 10)
 
         context = {
-            'students': students
+            'students': students,
+            'search_query': search_query, 
+            'custom_range': custom_range
         }
     
         return render(request, 'accounts/view-students.html', context)
@@ -89,7 +94,7 @@ def viewStudents(request):
 def studentProfile(request):
     profile = request.user.userprofile
     userprofile = UserProfile.objects.get(user_id=request.user.id)
-    course = AcademicDetails.objects.get(student   =userprofile)
+    course = AcademicDetails.objects.get(student=userprofile)
     form = UserProfileForm(instance=profile)
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)

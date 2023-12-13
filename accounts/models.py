@@ -81,7 +81,7 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
-
+ 
 class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, null=True, blank=True)

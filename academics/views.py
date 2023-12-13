@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import AcademicDetailsForm, UnitsForm, RegisterUnits, RegisterUnitsForm
 from .models import RegisterUnits, Attendance
+from .utils import paginateAttendance, searchAtendance
 
 # Create your views here.
 @login_required(login_url= 'login')
@@ -124,13 +126,15 @@ def attendance(request):
 
 
 
-@login_required(login_url= 'login')
+@login_required(login_url= 'login') 
 def myAttendance(request):
     user = request.user
     if  user.is_student == True:
         profile = request.user.userprofile
+
         attendance = Attendance.objects.filter(unit_id__student=profile)
-    
+
+
         context = {'attendance': attendance}
         return render(request, 'academics/my-attendance.html', context)
     else:
@@ -142,10 +146,15 @@ def myAttendance(request):
 def viewAttendance(request):
     user = request.user
     if  user.is_admin == True:
-        profile = request.user.userprofile
-        attendance = Attendance.objects.all()
+       
+        attendance, search_query = searchAtendance(request)
+        custom_range, attendance = paginateAttendance(request, attendance, 10)
     
-        context = {'attendance': attendance}
+        context = {
+            'attendance': attendance,
+            'search_query': search_query, 
+            'custom_range': custom_range
+                   }
         return render(request, 'academics/view-attendance.html', context)
     else:
         messages.error(request, "Access Route Denied!")

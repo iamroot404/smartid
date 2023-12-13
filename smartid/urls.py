@@ -25,5 +25,6 @@ urlpatterns = [
     path('dashboard/', include('frontend.urls')),
     path('department/', include('department.urls')),
     path('academics/', include('academics.urls')),
+    path('api/', include('api.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
